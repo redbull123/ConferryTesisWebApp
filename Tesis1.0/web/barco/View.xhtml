@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BarcoViewDlg" widgetVar="BarcoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewBarcoTitle}">
+            <h:form id="BarcoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{barcoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewBarcoLabel_id}"/>
+                        <h:outputText value="#{barcoController.selected.id}" title="#{bundle.ViewBarcoTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewBarcoLabel_nombre}"/>
+                        <h:outputText value="#{barcoController.selected.nombre}" title="#{bundle.ViewBarcoTitle_nombre}"/>
+                        <h:outputText value="#{bundle.ViewBarcoLabel_capacidadPersonas}"/>
+                        <h:outputText value="#{barcoController.selected.capacidadPersonas}" title="#{bundle.ViewBarcoTitle_capacidadPersonas}"/>
+                        <h:outputText value="#{bundle.ViewBarcoLabel_capacidadAutos}"/>
+                        <h:outputText value="#{barcoController.selected.capacidadAutos}" title="#{bundle.ViewBarcoTitle_capacidadAutos}"/>
+                        <h:outputText value="#{bundle.ViewBarcoLabel_capacidadCarga}"/>
+                        <h:outputText value="#{barcoController.selected.capacidadCarga}" title="#{bundle.ViewBarcoTitle_capacidadCarga}"/>
+                        <h:outputText value="#{bundle.ViewBarcoLabel_capacidadAutobus}"/>
+                        <h:outputText value="#{barcoController.selected.capacidadAutobus}" title="#{bundle.ViewBarcoTitle_capacidadAutobus}"/>
+                        <h:outputText value="#{bundle.ViewBarcoLabel_capacidadMoto}"/>
+                        <h:outputText value="#{barcoController.selected.capacidadMoto}" title="#{bundle.ViewBarcoTitle_capacidadMoto}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="BarcoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

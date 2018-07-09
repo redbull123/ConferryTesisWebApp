@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Conferrys</title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+    <h:body>
+        <p:layout fullPage="true">
+            <p:layoutUnit position="north" size="80" resizable="false">
+                <h:outputText value="Bienvenido a Conferrys Administrador"/>
+            </p:layoutUnit>
+            <p:layoutUnit position="center" resizable="false">
+                <h:form>
+                    <p:growl id="growl" life="2000" />
+
+                    <p:commandButton value="Barco" id="barco" update="growl" styleClass="ui-priority-primary" action="/barco/List?faces-redirect=true"/>
+                    <p:commandButton value="Itinerario" id="itinerario" update="growl" styleClass="ui-priority-primary" action="/itinerario/List?faces-redirect=true"/>
+                    <p:commandButton value="Boleto" id="boleto" update="growl" styleClass="ui-priority-primary" action="/boleto/List?faces-redirect=true"/>
+                    <p:commandButton value="Pasajero" id="pasajero" update="growl" styleClass="ui-priority-primary" action="/pasajero/List?faces-redirect=true"/>
+                    <p:commandButton value="Ruta" id="ruta" update="growl" styleClass="ui-priority-primary" action="/ruta/List?faces-redirect=true"/>
+                    <p:commandButton value="Tipo de Boleto" id="tipo_de_boleto" update="growl"  styleClass="ui-priority-primary" action="/tipoBoleto/List?faces-redirect=true"/>
+                    <p:commandButton value="Usuario" id="usuario" update="growl"  styleClass="ui-priority-primary" action="/usuario/List?faces-redirect=true"/>
+
+                </h:form>
+            </p:layoutUnit>
+        </p:layout>
+        
+        
+<!--        
+        
+        Bienvenido a Conferrys Administrador
+        <h:form>
+            <p:growl id="growl" life="2000" />
+        
+                <p:commandButton value="Barco" id="barco" update="growl" styleClass="ui-priority-primary" action="/barco/List?faces-redirect=true"/>
+                <p:commandButton value="Itinerario" id="itinerario" update="growl" styleClass="ui-priority-primary" action="/itinerario/List?faces-redirect=true"/>
+                <p:commandButton value="Boleto" id="boleto" update="growl" styleClass="ui-priority-primary" action="/boleto/List?faces-redirect=true"/>
+                <p:commandButton value="Pasajero" id="pasajero" update="growl" styleClass="ui-priority-primary" action="/pasajero/List?faces-redirect=true"/>
+                <p:commandButton value="Ruta" id="ruta" update="growl" styleClass="ui-priority-primary" action="/ruta/List?faces-redirect=true"/>
+                <p:commandButton value="Tipo de Boleto" id="tipo_de_boleto" update="growl"  styleClass="ui-priority-primary" action="/tipoBoleto/List?faces-redirect=true"/>
+                <p:commandButton value="Usuario" id="usuario" update="growl"  styleClass="ui-priority-primary" action="/usuario/List?faces-redirect=true"/>
+        
+        </h:form>-->
+        
+    </h:body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
+

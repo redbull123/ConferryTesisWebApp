@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BarcoEditDlg" widgetVar="BarcoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditBarcoTitle}">
+            <h:form id="BarcoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{barcoController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditBarcoLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{barcoController.selected.id}" title="#{bundle.EditBarcoTitle_id}" required="true" requiredMessage="#{bundle.EditBarcoRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.EditBarcoLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{barcoController.selected.nombre}" title="#{bundle.EditBarcoTitle_nombre}" />
+                        <p:outputLabel value="#{bundle.EditBarcoLabel_capacidadPersonas}" for="capacidadPersonas" />
+                        <p:inputText id="capacidadPersonas" value="#{barcoController.selected.capacidadPersonas}" title="#{bundle.EditBarcoTitle_capacidadPersonas}" />
+                        <p:outputLabel value="#{bundle.EditBarcoLabel_capacidadAutos}" for="capacidadAutos" />
+                        <p:inputText id="capacidadAutos" value="#{barcoController.selected.capacidadAutos}" title="#{bundle.EditBarcoTitle_capacidadAutos}" />
+                        <p:outputLabel value="#{bundle.EditBarcoLabel_capacidadCarga}" for="capacidadCarga" />
+                        <p:inputText id="capacidadCarga" value="#{barcoController.selected.capacidadCarga}" title="#{bundle.EditBarcoTitle_capacidadCarga}" />
+                        <p:outputLabel value="#{bundle.EditBarcoLabel_capacidadAutobus}" for="capacidadAutobus" />
+                        <p:inputText id="capacidadAutobus" value="#{barcoController.selected.capacidadAutobus}" title="#{bundle.EditBarcoTitle_capacidadAutobus}" />
+                        <p:outputLabel value="#{bundle.EditBarcoLabel_capacidadMoto}" for="capacidadMoto" />
+                        <p:inputText id="capacidadMoto" value="#{barcoController.selected.capacidadMoto}" title="#{bundle.EditBarcoTitle_capacidadMoto}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{barcoController.update}" value="#{bundle.Save}" update="display,:BarcoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'BarcoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="BarcoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

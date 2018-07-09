@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PasajeroViewDlg" widgetVar="PasajeroViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPasajeroTitle}">
+            <h:form id="PasajeroViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{pasajeroController.selected != null}">
+                        <h:outputText value="#{bundle.ViewPasajeroLabel_id}"/>
+                        <h:outputText value="#{pasajeroController.selected.id}" title="#{bundle.ViewPasajeroTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewPasajeroLabel_nombre}"/>
+                        <h:outputText value="#{pasajeroController.selected.nombre}" title="#{bundle.ViewPasajeroTitle_nombre}"/>
+                        <h:outputText value="#{bundle.ViewPasajeroLabel_apellido}"/>
+                        <h:outputText value="#{pasajeroController.selected.apellido}" title="#{bundle.ViewPasajeroTitle_apellido}"/>
+                        <h:outputText value="#{bundle.ViewPasajeroLabel_cedulaIdentidad}"/>
+                        <h:outputText value="#{pasajeroController.selected.cedulaIdentidad}" title="#{bundle.ViewPasajeroTitle_cedulaIdentidad}"/>
+                        <h:outputText value="#{bundle.ViewPasajeroLabel_fechaNacimiento}"/>
+                        <h:outputText value="#{pasajeroController.selected.fechaNacimiento}" title="#{bundle.ViewPasajeroTitle_fechaNacimiento}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewPasajeroLabel_boletoId}"/>
+                        <h:outputText value="#{pasajeroController.selected.boletoId}" title="#{bundle.ViewPasajeroTitle_boletoId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PasajeroViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
