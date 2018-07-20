@@ -10,7 +10,7 @@ import org.tesis.model.Pasajero;
 import org.tesis.model.TipoBoleto;
 import org.tesis.model.Usuario;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-07-05T08:05:48")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-07-20T00:16:43")
 @StaticMetamodel(Boleto.class)
 public class Boleto_ { 
 
