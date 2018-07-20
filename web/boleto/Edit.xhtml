@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BoletoEditDlg" widgetVar="BoletoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditBoletoTitle}">
+            <h:form id="BoletoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{boletoController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditBoletoLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{boletoController.selected.id}" title="#{bundle.EditBoletoTitle_id}" required="true" requiredMessage="#{bundle.EditBoletoRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.EditBoletoLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{boletoController.selected.fecha}" title="#{bundle.EditBoletoTitle_fecha}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditBoletoLabel_hora}" for="hora" />
+                        <p:calendar id="hora" pattern="HH:mm:ss" value="#{boletoController.selected.hora}" title="#{bundle.EditBoletoTitle_hora}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditBoletoLabel_itinerarioId}" for="itinerarioId" />
+                        <p:selectOneMenu id="itinerarioId" value="#{boletoController.selected.itinerarioId}" required="true" requiredMessage="#{bundle.EditBoletoRequiredMessage_itinerarioId}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{itinerarioController.itemsAvailableSelectOne}"
+                                           var="itinerarioIdItem"
+                                           itemValue="#{itinerarioIdItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditBoletoLabel_tipoBoletoId}" for="tipoBoletoId" />
+                        <p:selectOneMenu id="tipoBoletoId" value="#{boletoController.selected.tipoBoletoId}" required="true" requiredMessage="#{bundle.EditBoletoRequiredMessage_tipoBoletoId}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tipoBoletoController.itemsAvailableSelectOne}"
+                                           var="tipoBoletoIdItem"
+                                           itemValue="#{tipoBoletoIdItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditBoletoLabel_usuarioId}" for="usuarioId" />
+                        <p:selectOneMenu id="usuarioId" value="#{boletoController.selected.usuarioId}" required="true" requiredMessage="#{bundle.EditBoletoRequiredMessage_usuarioId}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="usuarioIdItem"
+                                           itemValue="#{usuarioIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{boletoController.update}" value="#{bundle.Save}" update="display,:BoletoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'BoletoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="BoletoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
