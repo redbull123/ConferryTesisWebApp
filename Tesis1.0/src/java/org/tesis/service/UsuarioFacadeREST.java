@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.tesis.service;
 
 import java.util.List;
@@ -60,12 +55,28 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
     @Produces({MediaType.APPLICATION_JSON})
     public Usuario find(@PathParam("id") Integer id) {
         return super.find(id);
-    }
-
+         }
+    @GET
+    @Path("finduser/{usuario}/")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Usuario findUser(@PathParam("usuario") String user) {
+        
+        List<Usuario> userList = findAll();
+        Usuario hasUser= new Usuario();
+        for(Usuario newUser : userList){
+            if(newUser.getUsuario().equals(user)){
+            hasUser = newUser;}
+        }
+        
+        return hasUser;
+         }
     @GET
     @Override
     @Produces({MediaType.APPLICATION_JSON})
     public List<Usuario> findAll() {
+        
+        
+        
         return super.findAll();
     }
 
