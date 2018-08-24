@@ -5,6 +5,10 @@
  */
 package org.tesis.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -59,7 +63,38 @@ public class ItinerarioFacadeREST extends AbstractFacade<Itinerario> {
     @Path("{id}")
     @Produces({MediaType.APPLICATION_JSON})
     public Itinerario find(@PathParam("id") Integer id) {
-        return super.find(id);
+        return super.find(id);}
+    
+    @GET
+    @Path("findschedule/{itinerario}/")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<Itinerario> findUser(@PathParam("itinerario") String date) {
+        int i=0;
+        List<Itinerario> scheduleList = findAll();
+        List<Itinerario> hasSchedule= new ArrayList<>();
+        for(Itinerario newSchedule : scheduleList){
+            System.out.println("primera"+ newSchedule.getFecha() );
+            System.out.println("segundo"+ changeFormat(date));
+            if(changeFormat(newSchedule.getFecha().toString()).equals(changeFormat(date))){
+            hasSchedule.add(newSchedule);}
+            i++;}
+        return hasSchedule;}
+    
+    public String changeFormat(String time){
+        String inputPattern = "yyyy-MM-dd'T'HH:mm:ssZ";
+        String outputPattern = "MMM d, yyyy";
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+
+        Date date = null;
+        String str= null;
+        try {
+            date = inputFormat.parse(time);
+            str = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return str;
     }
 
     @GET
