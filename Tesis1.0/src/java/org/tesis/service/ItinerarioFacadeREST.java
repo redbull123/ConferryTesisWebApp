@@ -66,20 +66,36 @@ public class ItinerarioFacadeREST extends AbstractFacade<Itinerario> {
         return super.find(id);}
     
     @GET
-    @Path("findschedule/{itinerario}/")
+    @Path("findschedule/{itinerarios}/")
     @Produces({MediaType.APPLICATION_JSON})
-    public List<Itinerario> findUser(@PathParam("itinerario") String date) {
+    public List<Itinerario> findUser(@PathParam("itinerarios") String date) {
         int i=0;
         List<Itinerario> scheduleList = findAll();
         List<Itinerario> hasSchedule= new ArrayList<>();
         for(Itinerario newSchedule : scheduleList){
-            System.out.println("primera"+ newSchedule.getFecha() );
+            System.out.println("primera"+ changeFormatOne(newSchedule.getFecha().toString()));
             System.out.println("segundo"+ changeFormat(date));
-            if(changeFormat(newSchedule.getFecha().toString()).equals(changeFormat(date))){
+            if(changeFormatOne(newSchedule.getFecha().toString()).equals(changeFormat(date))){
             hasSchedule.add(newSchedule);}
             i++;}
         return hasSchedule;}
     
+    public String changeFormatOne(String time){
+        String inputPattern = "EEE MMM d HH:mm:ss z yyyy";
+        String outputPattern = "MMM d, yyyy";
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+
+        Date date = null;
+        String str= null;
+        try {
+            date = inputFormat.parse(time);
+            str = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
     public String changeFormat(String time){
         String inputPattern = "yyyy-MM-dd'T'HH:mm:ssZ";
         String outputPattern = "MMM d, yyyy";
