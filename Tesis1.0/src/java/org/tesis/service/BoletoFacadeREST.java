@@ -5,6 +5,7 @@
  */
 package org.tesis.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -19,6 +20,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import org.tesis.model.Boleto;
+import org.tesis.model.Itinerario;
 
 /**
  *
@@ -62,6 +64,26 @@ public class BoletoFacadeREST extends AbstractFacade<Boleto> {
         return super.find(id);
     }
 
+    
+    @GET
+    @Path("ticket/{id}/")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<Boleto> ticket(@PathParam("id") Integer id) {  // Busca el barco con este id
+        
+        List<Boleto> ticket = findAll();
+        List<Boleto> hasTicket = new ArrayList<>();
+        
+        for(Boleto newTicket: ticket){
+            
+            if(newTicket.getItinerarioId().getId() == id){
+                hasTicket.add(newTicket);
+            }
+        }
+        
+        
+        return hasTicket;
+    }
+    
     @GET
     @Override
     @Produces({MediaType.APPLICATION_JSON})

@@ -1,6 +1,8 @@
 package org.tesis.service;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,6 +16,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import org.tesis.model.Usuario;
+import org.tesis.utils.SendMailUsingAuthentication;
 
 /**
  *
@@ -22,6 +25,7 @@ import org.tesis.model.Usuario;
 @Stateless
 @Path("usuario")
 public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
+    
 
     @PersistenceContext(unitName = "Tesis1.0PU")
     private EntityManager em;
@@ -67,7 +71,6 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
             if(newUser.getUsuario().equals(user)){
             hasUser = newUser;}
         }
-        
         return hasUser;
          }
     @GET
