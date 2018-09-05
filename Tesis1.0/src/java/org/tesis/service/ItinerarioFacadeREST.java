@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.tesis.service;
 
 import java.text.ParseException;
@@ -27,8 +22,8 @@ import javax.ws.rs.core.MediaType;
 import org.tesis.model.Barco;
 import org.tesis.model.Boleto;
 import org.tesis.model.Itinerario;
+import org.tesis.model.Ticket;
 import org.tesis.utils.SendMailUsingAuthentication;
-import org.tesis.view.BarcoController;
 
 /**
  *
@@ -76,16 +71,60 @@ public class ItinerarioFacadeREST extends AbstractFacade<Itinerario> {
     @GET
     @Path("capacidadPuesto/{id}/")
     @Produces({MediaType.APPLICATION_JSON})
-    public Barco capacidadPuesto(@PathParam("id") Integer id) {   // Apartir itinerario se consigue el barco y devuelve un objeto tipo barco
+    public Ticket capacidadPuesto(@PathParam("id") Integer id) {   // Apartir itinerario se consigue el barco y devuelve un objeto tipo barco
         
         Itinerario schedule = super.find(id);
         Barco ship = new Barco();
-       // BarcoController prueba = new BarcoController();
+        BoletoFacadeREST ticket = new BoletoFacadeREST();
         
-        ship = schedule.getBarcoId();
-        //ship = prueba.getBarco(schedule.getBarcoId().getId());
+        List<Boleto> tit = new ArrayList();
         
-        return ship;
+        int persona=0;
+        int autos=0;
+        int carga=0;
+        int autobus=0;
+        int motos=0;
+        
+          ship = schedule.getBarcoId();
+        
+        Ticket avaible = new Ticket();
+        
+        tit=ticket.findAll();
+        List<Boleto> listTicket = new ArrayList();
+        
+        for(Boleto rec : tit){
+            
+            if(rec.getItinerarioId().getId()== id){
+                listTicket.add(rec);
+            }
+        }
+        
+        for(Boleto rec : listTicket){
+            if(rec.getTipoBoletoId().getId() ==1){
+                persona++;
+                System.out.println("Cantidad de PERSONAS= "+ persona);
+            }
+            if(rec.getTipoBoletoId().getId() ==3){
+                autos++;
+            }
+            if(rec.getItinerarioId().getId() == 4){
+                carga++;
+            }
+            if(rec.getTipoBoletoId().getId()==5){
+                autobus++;
+            }
+            if(rec.getTipoBoletoId().getId()==6){
+                motos++;
+            }
+        }
+     
+     avaible.setCapacidadPersonas(ship.getCapacidadPersonas()-persona);
+     avaible.setCapacidadAutos(ship.getCapacidadAutos() - autos);
+     avaible.setCapacidadCarga(ship.getCapacidadCarga() -carga);
+     avaible.setCapacidadAutobus(ship.getCapacidadAutobus() - autobus);
+     avaible.setCapacidadMotos(ship.getCapacidadMoto() - motos);
+        
+        return avaible;
     }
     
     
