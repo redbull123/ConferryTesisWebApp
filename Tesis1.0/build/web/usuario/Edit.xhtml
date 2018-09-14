@@ -12,8 +12,6 @@
             <h:form id="UsuarioEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{usuarioController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditUsuarioLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{usuarioController.selected.id}" title="#{bundle.EditUsuarioTitle_id}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_id}"/>
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_usuario}" for="usuario" />
                         <p:inputText id="usuario" value="#{usuarioController.selected.usuario}" title="#{bundle.EditUsuarioTitle_usuario}" />
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_password}" for="password" />

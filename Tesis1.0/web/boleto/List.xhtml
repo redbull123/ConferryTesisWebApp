@@ -59,13 +59,14 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListBoletoTitle_tipoBoletoId}"/>
                             </f:facet>
-                            <h:outputText value="#{item.tipoBoletoId}"/>
+                            <h:outputText value="#{item.tipoBoletoId.nombre}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListBoletoTitle_usuarioId}"/>
                             </f:facet>
-                            <h:outputText value="#{item.usuarioId}"/>
+                            <h:outputText value="#{item.usuarioId.ci}"/>
+                            <!--item.usuarioId-->
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{boletoController.prepareCreate}" update=":BoletoCreateForm" oncomplete="PF('BoletoCreateDialog').show()"/>

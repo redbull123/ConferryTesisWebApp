@@ -12,8 +12,6 @@
             <h:form id="PasajeroCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{pasajeroController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreatePasajeroLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{pasajeroController.selected.id}" title="#{bundle.CreatePasajeroTitle_id}" required="true" requiredMessage="#{bundle.CreatePasajeroRequiredMessage_id}"/>
                         <p:outputLabel value="#{bundle.CreatePasajeroLabel_nombre}" for="nombre" />
                         <p:inputText id="nombre" value="#{pasajeroController.selected.nombre}" title="#{bundle.CreatePasajeroTitle_nombre}" />
                         <p:outputLabel value="#{bundle.CreatePasajeroLabel_apellido}" for="apellido" />

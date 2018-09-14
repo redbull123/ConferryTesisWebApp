@@ -12,8 +12,6 @@
             <h:form id="ItinerarioEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{itinerarioController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditItinerarioLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{itinerarioController.selected.id}" title="#{bundle.EditItinerarioTitle_id}" required="true" requiredMessage="#{bundle.EditItinerarioRequiredMessage_id}"/>
                         <p:outputLabel value="#{bundle.EditItinerarioLabel_fecha}" for="fecha" />
                         <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{itinerarioController.selected.fecha}" title="#{bundle.EditItinerarioTitle_fecha}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.EditItinerarioLabel_time}" for="time" />

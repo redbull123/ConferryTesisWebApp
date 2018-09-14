@@ -12,8 +12,6 @@
             <h:form id="RutaEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{rutaController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditRutaLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{rutaController.selected.id}" title="#{bundle.EditRutaTitle_id}" required="true" requiredMessage="#{bundle.EditRutaRequiredMessage_id}"/>
                         <p:outputLabel value="#{bundle.EditRutaLabel_ruta}" for="ruta" />
                         <p:inputText id="ruta" value="#{rutaController.selected.ruta}" title="#{bundle.EditRutaTitle_ruta}" />
                     </p:panelGrid>

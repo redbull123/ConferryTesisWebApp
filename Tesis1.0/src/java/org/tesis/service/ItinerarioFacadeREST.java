@@ -23,7 +23,6 @@ import org.tesis.model.Barco;
 import org.tesis.model.Boleto;
 import org.tesis.model.Itinerario;
 import org.tesis.model.Ticket;
-import org.tesis.utils.SendMailUsingAuthentication;
 
 /**
  *
@@ -68,64 +67,7 @@ public class ItinerarioFacadeREST extends AbstractFacade<Itinerario> {
     public Itinerario find(@PathParam("id") Integer id) {
         return super.find(id);}
     
-    @GET
-    @Path("capacidadPuesto/{id}/")
-    @Produces({MediaType.APPLICATION_JSON})
-    public Ticket capacidadPuesto(@PathParam("id") Integer id) {   // Apartir itinerario se consigue el barco y devuelve un objeto tipo barco
-        
-        Itinerario schedule = super.find(id);
-        Barco ship = new Barco();
-        BoletoFacadeREST ticket = new BoletoFacadeREST();
-        
-        List<Boleto> tit = new ArrayList();
-        
-        int persona=0;
-        int autos=0;
-        int carga=0;
-        int autobus=0;
-        int motos=0;
-        
-          ship = schedule.getBarcoId();
-        
-        Ticket avaible = new Ticket();
-        
-        tit=ticket.findAll();
-        List<Boleto> listTicket = new ArrayList();
-        
-        for(Boleto rec : tit){
-            
-            if(rec.getItinerarioId().getId()== id){
-                listTicket.add(rec);
-            }
-        }
-        
-        for(Boleto rec : listTicket){
-            if(rec.getTipoBoletoId().getId() ==1){
-                persona++;
-                System.out.println("Cantidad de PERSONAS= "+ persona);
-            }
-            if(rec.getTipoBoletoId().getId() ==3){
-                autos++;
-            }
-            if(rec.getItinerarioId().getId() == 4){
-                carga++;
-            }
-            if(rec.getTipoBoletoId().getId()==5){
-                autobus++;
-            }
-            if(rec.getTipoBoletoId().getId()==6){
-                motos++;
-            }
-        }
-     
-     avaible.setCapacidadPersonas(ship.getCapacidadPersonas()-persona);
-     avaible.setCapacidadAutos(ship.getCapacidadAutos() - autos);
-     avaible.setCapacidadCarga(ship.getCapacidadCarga() -carga);
-     avaible.setCapacidadAutobus(ship.getCapacidadAutobus() - autobus);
-     avaible.setCapacidadMotos(ship.getCapacidadMoto() - motos);
-        
-        return avaible;
-    }
+
     
     
     @GET
@@ -146,14 +88,9 @@ public class ItinerarioFacadeREST extends AbstractFacade<Itinerario> {
         System.out.println("esto imprime"+ newl.getFecha());
 
     }
+       
         
-        
-        try {
-            SendMailUsingAuthentication.main(emailList);
-        } catch (Exception ex) {
-            Logger.getLogger(UsuarioFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return hasSchedule;}
+    return hasSchedule;}
     
     public String changeFormatOne(String time){
         String inputPattern = "EEE MMM d HH:mm:ss z yyyy";

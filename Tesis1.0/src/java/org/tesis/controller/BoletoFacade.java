@@ -5,10 +5,14 @@
  */
 package org.tesis.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import org.tesis.model.Barco;
 import org.tesis.model.Boleto;
+import org.tesis.model.Ticket;
 
 /**
  *
@@ -29,4 +33,5 @@ public class BoletoFacade extends AbstractFacade<Boleto> {
         super(Boleto.class);
     }
     
+
 }

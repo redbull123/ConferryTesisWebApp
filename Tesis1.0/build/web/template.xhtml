@@ -12,14 +12,14 @@
     </h:head>
 
     <h:body>
-
+        
         <p:growl id="growl" life="3000" />
 
         <p:layout fullPage="true">
             <p:layoutUnit position="north" size="65" header="#{bundle.AppName}">
                 <h:form id="menuForm">
                     <p:menubar>
-                        <p:menuitem value="#{bundle.Home}" outcome="/menu_sa" icon="ui-icon-home"/>
+                        <p:menuitem value="#{bundle.Home}" outcome="/menu/menu_sa" icon="ui-icon-home"/>
                         <p:submenu label="#{bundle.Maintenance}">
                             <p:menuitem value="Barco" outcome="/barco/List.xhtml" />
                             <p:menuitem value="Boleto" outcome="/boleto/List.xhtml" />
@@ -37,14 +37,10 @@
             <p:layoutUnit position="south" size="60">
                 <ui:insert name="footer"/>
             </p:layoutUnit>
-
             <p:layoutUnit position="center">
-                <ui:insert name="body"/>
-                <p:graphicImage value="/barco.jpg"/>
+                <ui:insert name="body" />
+                <p:graphicImage value="/barco.jpg" width="1575"/>
             </p:layoutUnit>
-
         </p:layout>
-
     </h:body>
-
 </html>

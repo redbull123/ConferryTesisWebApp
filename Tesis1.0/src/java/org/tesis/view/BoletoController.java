@@ -6,6 +6,7 @@ import org.tesis.view.util.JsfUtil.PersistAction;
 import org.tesis.controller.BoletoFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -18,6 +19,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.tesis.model.Barco;
+import org.tesis.model.Ticket;
 
 @Named("boletoController")
 @SessionScoped
@@ -161,5 +164,5 @@ public class BoletoController implements Serializable {
         }
 
     }
-
+    
 }

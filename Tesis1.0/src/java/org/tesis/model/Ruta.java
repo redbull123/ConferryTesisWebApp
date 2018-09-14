@@ -99,7 +99,7 @@ public class Ruta implements Serializable {
 
     @Override
     public String toString() {
-        return "tesis.Ruta[ id=" + id + " ]";
+        return "" + id + "";
     }
     
 }

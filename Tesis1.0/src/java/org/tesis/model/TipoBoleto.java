@@ -137,7 +137,7 @@ public class TipoBoleto implements Serializable {
 
     @Override
     public String toString() {
-        return "tesis.TipoBoleto[ id=" + id + " ]";
+        return "" + nombre + "";
     }
     
 }

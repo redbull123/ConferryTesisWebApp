@@ -12,8 +12,6 @@
             <h:form id="BoletoEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{boletoController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditBoletoLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{boletoController.selected.id}" title="#{bundle.EditBoletoTitle_id}" required="true" requiredMessage="#{bundle.EditBoletoRequiredMessage_id}"/>
                         <p:outputLabel value="#{bundle.EditBoletoLabel_fecha}" for="fecha" />
                         <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{boletoController.selected.fecha}" title="#{bundle.EditBoletoTitle_fecha}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.EditBoletoLabel_hora}" for="hora" />

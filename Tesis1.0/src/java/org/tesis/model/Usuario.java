@@ -167,7 +167,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "tesis.Usuario[ id=" + id + " ]";
+        return "" + ci +  "";
     }
     
 }

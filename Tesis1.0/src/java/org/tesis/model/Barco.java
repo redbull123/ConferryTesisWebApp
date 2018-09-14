@@ -149,7 +149,7 @@ public class Barco implements Serializable {
 
     @Override
     public String toString() {
-        return "tesis.Barco[ id=" + id + " ]";
+        return "" + nombre + "";
     }
     
 }

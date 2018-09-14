@@ -9,7 +9,7 @@ import org.tesis.model.Barco;
 import org.tesis.model.Boleto;
 import org.tesis.model.Ruta;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-08-29T23:49:41")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-09-13T11:23:08")
 @StaticMetamodel(Itinerario.class)
 public class Itinerario_ { 
 

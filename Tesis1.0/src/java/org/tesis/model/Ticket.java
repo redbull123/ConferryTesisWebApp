@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -20,7 +21,6 @@ public class Ticket {
     public Ticket() {
     }
 
-    
     public Ticket(int capacidadPersonas, int capacidadAutos, int capacidadCarga, int capacidadAutobus, int capacidadMotos) {
         this.capacidadPersonas = capacidadPersonas;
         this.capacidadAutos = capacidadAutos;
@@ -29,9 +29,6 @@ public class Ticket {
         this.capacidadMotos = capacidadMotos;
     }
 
-    
-    
-    
     public int getCapacidadPersonas() {
         return capacidadPersonas;
     }
@@ -71,8 +68,7 @@ public class Ticket {
     public void setCapacidadMotos(int capacidadMotos) {
         this.capacidadMotos = capacidadMotos;
     }
-    
-    
+
     
     
 }

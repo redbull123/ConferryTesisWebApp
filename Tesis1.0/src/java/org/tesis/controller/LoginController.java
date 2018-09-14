@@ -47,7 +47,7 @@ public class LoginController {
     
     private void verifySuperAdmin() {
         String user = "superadmin";
-        String psw = "RaulDaniel";
+        String psw = "1234";
         boolean verified = checkUser(user, psw);
         if(!verified){
             System.out.println("Llego a crear usuario con " + user + " y " + psw);
@@ -67,7 +67,8 @@ public class LoginController {
         try {
             System.out.println("Llego con " + user.getUsuario() 
                     + " " + user.getPerfil() 
-                    + " " + user.getStatus());
+                    + " " + user.getStatus()
+                    + " " + user.getPassword());
             userFacade.create(user);
         } catch (Exception e) {
             System.err.println("Error creando usuario: " + e);

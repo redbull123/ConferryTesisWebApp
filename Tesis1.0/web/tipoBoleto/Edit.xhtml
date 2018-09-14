@@ -12,8 +12,6 @@
             <h:form id="TipoBoletoEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{tipoBoletoController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditTipoBoletoLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{tipoBoletoController.selected.id}" title="#{bundle.EditTipoBoletoTitle_id}" required="true" requiredMessage="#{bundle.EditTipoBoletoRequiredMessage_id}"/>
                         <p:outputLabel value="#{bundle.EditTipoBoletoLabel_nombre}" for="nombre" />
                         <p:inputText id="nombre" value="#{tipoBoletoController.selected.nombre}" title="#{bundle.EditTipoBoletoTitle_nombre}" />
                         <p:outputLabel value="#{bundle.EditTipoBoletoLabel_precio}" for="precio" />

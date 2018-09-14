@@ -12,8 +12,6 @@
             <h:form id="BarcoCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{barcoController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateBarcoLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{barcoController.selected.id}" title="#{bundle.CreateBarcoTitle_id}" required="true" requiredMessage="#{bundle.CreateBarcoRequiredMessage_id}"/>
                         <p:outputLabel value="#{bundle.CreateBarcoLabel_nombre}" for="nombre" />
                         <p:inputText id="nombre" value="#{barcoController.selected.nombre}" title="#{bundle.CreateBarcoTitle_nombre}" />
                         <p:outputLabel value="#{bundle.CreateBarcoLabel_capacidadPersonas}" for="capacidadPersonas" />

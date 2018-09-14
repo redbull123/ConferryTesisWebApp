@@ -139,7 +139,7 @@ public class Itinerario implements Serializable {
 
     @Override
     public String toString() {
-        return "tesis.Itinerario[ id=" + id + " ]";
+        return "" + id + "";
     }
     
 }

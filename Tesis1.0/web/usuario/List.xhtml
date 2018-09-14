@@ -9,12 +9,12 @@
     <ui:composition template="/template.xhtml">
 
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListUsuarioTitle}"></h:outputText>
+            <h:outputText value="#{bundle.ListUsuarioTitle_usuario}"></h:outputText>
         </ui:define>
 
         <ui:define name="body">
             <h:form id="UsuarioListForm">
-                <p:panel header="#{bundle.ListUsuarioTitle}">
+                <p:panel header="#{bundle.ListUsuarioTitle_usuario}">
                     <p:dataTable id="datalist" value="#{usuarioController.items}" var="item"
                                  selectionMode="single" selection="#{usuarioController.selected}"
                                  paginator="true"

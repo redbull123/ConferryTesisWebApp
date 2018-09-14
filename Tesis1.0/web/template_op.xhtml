@@ -19,7 +19,7 @@
             <p:layoutUnit position="north" size="65" header="#{bundle.AppName}">
                 <h:form id="menuForm">
                     <p:menubar>
-                        <p:menuitem value="#{bundle.Home}" outcome="/menu_op" icon="ui-icon-home"/>
+                        <p:menuitem value="#{bundle.Home}" outcome="/menu/menu_op" icon="ui-icon-home"/>
                         <p:submenu label="#{bundle.Maintenance}">
                             <p:menuitem value="Boleto" outcome="/boleto/List_op.xhtml" />
                             <p:menuitem value="Itinerario" outcome="/itinerario/List_op.xhtml" />
@@ -37,8 +37,8 @@
             </p:layoutUnit>
 
             <p:layoutUnit position="center">
-                <ui:insert name="body"/>
-                <p:graphicImage value="/barco.jpg" />
+                <ui:insert name="body" />
+                <p:graphicImage value="/barco.jpg" width="1580"/>
             </p:layoutUnit>
 
         </p:layout>

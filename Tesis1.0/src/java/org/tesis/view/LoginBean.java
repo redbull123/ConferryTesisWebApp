@@ -54,13 +54,13 @@ public class LoginBean implements Serializable {
             String perfil = loginController.checkProfile(inputuser);
             switch(perfil){
                 case "sa":
-                    result ="menu_sa";
+                    result ="menu/menu_sa";
                     break;
                 case "sv":
-                    result ="menu_sv";
+                    result ="menu/menu_sv";
                     break;
                 case "op":
-                    result ="menu_op";
+                    result ="menu/menu_op";
                     break;
             }
 
