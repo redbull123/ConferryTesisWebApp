@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CuentasCreateDlg" widgetVar="CuentasCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateCuentasTitle}">
+            <h:form id="CuentasCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{cuentasController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateCuentasLabel_numero}" for="numero" />
+                        <p:inputText id="numero" value="#{cuentasController.selected.numero}" title="#{bundle.CreateCuentasTitle_numero}" />
+                        <p:outputLabel value="#{bundle.CreateCuentasLabel_tipo}" for="tipo" />
+                        <p:inputText id="tipo" value="#{cuentasController.selected.tipo}" title="#{bundle.CreateCuentasTitle_tipo}" />
+                        <p:outputLabel value="#{bundle.CreateCuentasLabel_fechaApertura}" for="fechaApertura" />
+                        <p:calendar id="fechaApertura" pattern="MM/dd/yyyy" value="#{cuentasController.selected.fechaApertura}" title="#{bundle.EditCuentasTitle_fechaApertura}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateCuentasLabel_fondo}" for="fondo" />
+                        <p:inputText id="fondo" value="#{cuentasController.selected.fondo}" title="#{bundle.CreateCuentasTitle_fondo}" required="true" requiredMessage="#{bundle.CreateCuentasRequiredMessage_fondo}"/>
+                        <p:outputLabel value="#{bundle.CreateCuentasLabel_clienteId}" for="clienteId" />
+                        <p:selectOneMenu id="clienteId" value="#{cuentasController.selected.clienteId}" required="true" requiredMessage="#{bundle.EditCuentasRequiredMessage_clienteId}">
+                            <f:selectItems value="#{clienteController.itemsAvailableSelectOne}"
+                                           var="clienteIdItem"
+                                           itemValue="#{clienteIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{cuentasController.create}" value="#{bundle.Save}" update="display,:CuentasListForm:datalist,:growl" oncomplete="handleSubmit(args,'CuentasCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CuentasCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

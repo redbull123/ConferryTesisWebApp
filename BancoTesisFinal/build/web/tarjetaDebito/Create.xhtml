@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TarjetaDebitoCreateDlg" widgetVar="TarjetaDebitoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTarjetaDebitoTitle}">
+            <h:form id="TarjetaDebitoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tarjetaDebitoController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateTarjetaDebitoLabel_numero}" for="numero" />
+                        <p:inputText id="numero" value="#{tarjetaDebitoController.selected.numero}" title="#{bundle.CreateTarjetaDebitoTitle_numero}" />
+                        <p:outputLabel value="#{bundle.CreateTarjetaDebitoLabel_marca}" for="marca" />
+                        <p:inputText id="marca" value="#{tarjetaDebitoController.selected.marca}" title="#{bundle.CreateTarjetaDebitoTitle_marca}" />
+                        <p:outputLabel value="#{bundle.CreateTarjetaDebitoLabel_fechaVencimiento}" for="fechaVencimiento" />
+                        <p:calendar id="fechaVencimiento" pattern="MM/dd/yyyy" value="#{tarjetaDebitoController.selected.fechaVencimiento}" title="#{bundle.EditTarjetaDebitoTitle_fechaVencimiento}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateTarjetaDebitoLabel_codigoSeguridad}" for="codigoSeguridad" />
+                        <p:inputText id="codigoSeguridad" value="#{tarjetaDebitoController.selected.codigoSeguridad}" title="#{bundle.CreateTarjetaDebitoTitle_codigoSeguridad}" />
+                        <p:outputLabel value="#{bundle.CreateTarjetaDebitoLabel_cuentasId}" for="cuentasId" />
+                        <p:selectOneMenu id="cuentasId" value="#{tarjetaDebitoController.selected.cuentasId}" required="true" requiredMessage="#{bundle.EditTarjetaDebitoRequiredMessage_cuentasId}">
+                            <f:selectItems value="#{cuentasController.itemsAvailableSelectOne}"
+                                           var="cuentasIdItem"
+                                           itemValue="#{cuentasIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tarjetaDebitoController.create}" value="#{bundle.Save}" update="display,:TarjetaDebitoListForm:datalist,:growl" oncomplete="handleSubmit(args,'TarjetaDebitoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TarjetaDebitoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

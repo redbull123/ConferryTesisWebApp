@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TarjetaCreditoViewDlg" widgetVar="TarjetaCreditoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTarjetaCreditoTitle}">
+            <h:form id="TarjetaCreditoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tarjetaCreditoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTarjetaCreditoLabel_id}"/>
+                        <h:outputText value="#{tarjetaCreditoController.selected.id}" title="#{bundle.ViewTarjetaCreditoTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewTarjetaCreditoLabel_numero}"/>
+                        <h:outputText value="#{tarjetaCreditoController.selected.numero}" title="#{bundle.ViewTarjetaCreditoTitle_numero}"/>
+                        <h:outputText value="#{bundle.ViewTarjetaCreditoLabel_marca}"/>
+                        <h:outputText value="#{tarjetaCreditoController.selected.marca}" title="#{bundle.ViewTarjetaCreditoTitle_marca}"/>
+                        <h:outputText value="#{bundle.ViewTarjetaCreditoLabel_limite}"/>
+                        <h:outputText value="#{tarjetaCreditoController.selected.limite}" title="#{bundle.ViewTarjetaCreditoTitle_limite}"/>
+                        <h:outputText value="#{bundle.ViewTarjetaCreditoLabel_status}"/>
+                        <h:outputText value="#{tarjetaCreditoController.selected.status}" title="#{bundle.ViewTarjetaCreditoTitle_status}"/>
+                        <h:outputText value="#{bundle.ViewTarjetaCreditoLabel_saldo}"/>
+                        <h:outputText value="#{tarjetaCreditoController.selected.saldo}" title="#{bundle.ViewTarjetaCreditoTitle_saldo}"/>
+                        <h:outputText value="#{bundle.ViewTarjetaCreditoLabel_cvc}"/>
+                        <h:outputText value="#{tarjetaCreditoController.selected.cvc}" title="#{bundle.ViewTarjetaCreditoTitle_cvc}"/>
+                        <h:outputText value="#{bundle.ViewTarjetaCreditoLabel_fechaVencimiento}"/>
+                        <h:outputText value="#{tarjetaCreditoController.selected.fechaVencimiento}" title="#{bundle.ViewTarjetaCreditoTitle_fechaVencimiento}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTarjetaCreditoLabel_clienteId}"/>
+                        <h:outputText value="#{tarjetaCreditoController.selected.clienteId}" title="#{bundle.ViewTarjetaCreditoTitle_clienteId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TarjetaCreditoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

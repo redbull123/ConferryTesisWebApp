@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CuentasCreditoViewDlg" widgetVar="CuentasCreditoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewCuentasCreditoTitle}">
+            <h:form id="CuentasCreditoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{cuentasCreditoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewCuentasCreditoLabel_id}"/>
+                        <h:outputText value="#{cuentasCreditoController.selected.id}" title="#{bundle.ViewCuentasCreditoTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewCuentasCreditoLabel_numero}"/>
+                        <h:outputText value="#{cuentasCreditoController.selected.numero}" title="#{bundle.ViewCuentasCreditoTitle_numero}"/>
+                        <h:outputText value="#{bundle.ViewCuentasCreditoLabel_fechaApertura}"/>
+                        <h:outputText value="#{cuentasCreditoController.selected.fechaApertura}" title="#{bundle.ViewCuentasCreditoTitle_fechaApertura}"/>
+                        <h:outputText value="#{bundle.ViewCuentasCreditoLabel_clienteId}"/>
+                        <h:outputText value="#{cuentasCreditoController.selected.clienteId}" title="#{bundle.ViewCuentasCreditoTitle_clienteId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="CuentasCreditoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

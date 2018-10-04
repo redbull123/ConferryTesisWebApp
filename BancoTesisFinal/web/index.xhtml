@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Ferrys</title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+    <h:body>
+        <p:layout fullPage="true">
+            <p:layoutUnit position="north" size="50" resizable="false">
+                <h:outputText style="font-size: xx-large; color: darkgreen; font-style: oblique" value="Bienvenido al Banco"/>
+            </p:layoutUnit>
+            <p:layoutUnit position="center" resizable="false">
+                <h:form>
+                    <p:growl id="growl" life="2000" />
+                    <p:commandButton value="Cliente" id="cliente" update="growl" styleClass="ui-priority-primary" action="/cliente/List?faces-redirect=true"/>
+                    <p:commandButton value="Cuentas" id="cuentas" update="growl" styleClass="ui-priority-primary" action="/cuentas/List?faces-redirect=true"/>
+                    <p:commandButton value="Cuentas Credito" id="cuentas_credito" update="growl" styleClass="ui-priority-primary" action="/cuentasCredito/List?faces-redirect=true"/>
+                    <p:commandButton value="Movimientos Tarjeta" id="movimientos_tarjeta" update="growl" styleClass="ui-priority-primary" action="/movimientoTarjeta/List?faces-redirect=true"/>
+                    <p:commandButton value="Movimientos Cuenta" id="movimientos_cuenta" update="growl" styleClass="ui-priority-primary" action="/movimientosCuenta/List?faces-redirect=true"/>
+                    <p:commandButton value="Tarjetas de Credito" id="tarjetas_de_credito" update="growl"  styleClass="ui-priority-primary" action="/tarjetaCredito/List?faces-redirect=true"/>
+                    <p:commandButton value="Tarjetas de Debito" id="tarjetas_de_debito" update="growl"  styleClass="ui-priority-primary" action="/tarjetaDebito/List?faces-redirect=true"/>
+                    <p:commandButton value="Exit" icon="ui-icon-arrowreturnthick-1-w" action="/index"/>    
+                </h:form>
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+   
+</html>

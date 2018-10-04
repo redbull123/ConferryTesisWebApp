@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TarjetaCreditoCreateDlg" widgetVar="TarjetaCreditoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTarjetaCreditoTitle}">
+            <h:form id="TarjetaCreditoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tarjetaCreditoController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateTarjetaCreditoLabel_numero}" for="numero" />
+                        <p:inputText id="numero" value="#{tarjetaCreditoController.selected.numero}" title="#{bundle.CreateTarjetaCreditoTitle_numero}" />
+                        <p:outputLabel value="#{bundle.CreateTarjetaCreditoLabel_marca}" for="marca" />
+                        <p:inputText id="marca" value="#{tarjetaCreditoController.selected.marca}" title="#{bundle.CreateTarjetaCreditoTitle_marca}" />
+                        <p:outputLabel value="#{bundle.CreateTarjetaCreditoLabel_limite}" for="limite" />
+                        <p:inputText id="limite" value="#{tarjetaCreditoController.selected.limite}" title="#{bundle.CreateTarjetaCreditoTitle_limite}" />
+                        <p:outputLabel value="#{bundle.CreateTarjetaCreditoLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{tarjetaCreditoController.selected.status}" title="#{bundle.CreateTarjetaCreditoTitle_status}" />
+                        <p:outputLabel value="#{bundle.CreateTarjetaCreditoLabel_saldo}" for="saldo" />
+                        <p:inputText id="saldo" value="#{tarjetaCreditoController.selected.saldo}" title="#{bundle.CreateTarjetaCreditoTitle_saldo}" />
+                        <p:outputLabel value="#{bundle.CreateTarjetaCreditoLabel_cvc}" for="cvc" />
+                        <p:inputText id="cvc" value="#{tarjetaCreditoController.selected.cvc}" title="#{bundle.CreateTarjetaCreditoTitle_cvc}" required="true" requiredMessage="#{bundle.CreateTarjetaCreditoRequiredMessage_cvc}"/>
+                        <p:outputLabel value="#{bundle.CreateTarjetaCreditoLabel_fechaVencimiento}" for="fechaVencimiento" />
+                        <p:calendar id="fechaVencimiento" pattern="MM/dd/yyyy" value="#{tarjetaCreditoController.selected.fechaVencimiento}" title="#{bundle.EditTarjetaCreditoTitle_fechaVencimiento}" required="true" requiredMessage="#{bundle.EditTarjetaCreditoRequiredMessage_fechaVencimiento}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateTarjetaCreditoLabel_clienteId}" for="clienteId" />
+                        <p:selectOneMenu id="clienteId" value="#{tarjetaCreditoController.selected.clienteId}" required="true" requiredMessage="#{bundle.EditTarjetaCreditoRequiredMessage_clienteId}">
+                            <f:selectItems value="#{clienteController.itemsAvailableSelectOne}"
+                                           var="clienteIdItem"
+                                           itemValue="#{clienteIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tarjetaCreditoController.create}" value="#{bundle.Save}" update="display,:TarjetaCreditoListForm:datalist,:growl" oncomplete="handleSubmit(args,'TarjetaCreditoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TarjetaCreditoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
