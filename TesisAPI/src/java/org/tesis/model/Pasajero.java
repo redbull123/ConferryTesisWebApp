@@ -17,10 +17,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- *
- * @author rjsan
- */
 @Entity
 @Table(name = "pasajero")
 @XmlRootElement

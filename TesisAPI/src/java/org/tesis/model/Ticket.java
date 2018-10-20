@@ -1,9 +1,5 @@
 package org.tesis.model;
 
-/**
- *
- * @author rjsan
- */
 public class Ticket {
     
     int capacidadPersonas;
@@ -62,7 +58,4 @@ public class Ticket {
     public void setCapacidadMotos(int capacidadMotos) {
         this.capacidadMotos = capacidadMotos;
     }
-
-    
-    
 }

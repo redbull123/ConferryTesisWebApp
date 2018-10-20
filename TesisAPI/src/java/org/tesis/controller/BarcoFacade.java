@@ -7,10 +7,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import org.tesis.model.Barco;
 
-/**
- *
- * @author rjsan
- */
 @Stateless
 public class BarcoFacade extends AbstractFacade<Barco> {
 

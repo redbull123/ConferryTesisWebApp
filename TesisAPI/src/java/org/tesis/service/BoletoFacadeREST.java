@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
@@ -14,10 +15,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -40,14 +39,10 @@ public class BoletoFacadeREST extends AbstractFacade<Boleto> {
     private org.tesis.controller.TipoBoletoFacade ejbFacade;
     @EJB
     private ItinerarioFacade itinerarioFacade;
-
     private static int f = 0;
     private static Date date;
-    
     int secondPassed = 0;
     Timer myTimer = new Timer();
-    
-//    static Timer timer = new Timer();
     private static final int REPE = 10000;
     private static List<Boleto> perList = new ArrayList<>();
     private static List<Boleto> vehList = new ArrayList<>();
@@ -71,19 +66,6 @@ public class BoletoFacadeREST extends AbstractFacade<Boleto> {
         super.create(entity);
     }
 
-    @PUT
-    @Path("{id}")
-    @Consumes({MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, Boleto entity) {
-        super.edit(entity);
-    }
-
-    @DELETE
-    @Path("{id}")
-    public void remove(@PathParam("id") Integer id) {
-        super.remove(super.find(id));
-    }
-
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_JSON})
@@ -95,15 +77,41 @@ public class BoletoFacadeREST extends AbstractFacade<Boleto> {
     @Path("ticket/{id}/")
     @Produces({MediaType.APPLICATION_JSON})
     public List<Boleto> ticket(@PathParam("id") Integer id) {
-
         return boletoFacade.findAllBoletosByItinerario(id);
     }
 
     @GET
+    @Path("compras/{fecha}/{usuario}/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Boleto> boletosByUsuario(@PathParam("fecha") String fecha, @PathParam("usuario")String usuario){
+        List<Boleto> boletosList= new ArrayList<>();
+        
+        System.out.println("fecha es =" + fecha);
+        System.out.println("Usuario es = "+ usuario);
+        
+        String outputPattern = "yyyy-MM-dd'T'HH:mm:ssZ";
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+        try {
+            Date date = outputFormat.parse(fecha);
+        } catch (ParseException ex) {
+            Logger.getLogger(BoletoFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        List<Boleto> boletosFechaList= boletoFacade.findByFecha(date);
+        
+        for(Boleto boleto: boletosFechaList){
+            if(boleto.getUsuarioId().getUsuario().equals(usuario)){
+                boletosList.add(boleto);
+            }
+        }
+        
+        return boletosList;
+    }
+    
+    @GET
     @Path("capacidadPuesto/{id}/")
     @Produces({MediaType.APPLICATION_JSON})
     public Ticket capacidadPuesto(@PathParam("id") int itinerarioId) {
-// Apartir itinerario se consigue el barco y devuelve un objeto tipo barco
+    // Itinerario se consigue el barco y devuelve un objeto tipo barco
         int persona = 0;
         int autos = 0;
         int carga = 0;
@@ -111,7 +119,6 @@ public class BoletoFacadeREST extends AbstractFacade<Boleto> {
         int motos = 0;
         Barco ship = itinerarioFacade.findShip(itinerarioId);
         List<Boleto> boletoList = boletoFacade.findAllBoletosByItinerario(itinerarioId);
-
         for (Boleto rec : boletoList) {
             if (rec.getTipoBoletoId().getNombre().equals("Adulto") || 
                 rec.getTipoBoletoId().getNombre().equals("Niño") || 
@@ -131,7 +138,6 @@ public class BoletoFacadeREST extends AbstractFacade<Boleto> {
                 motos++;
             }
         }
-            
         Ticket ticketModel = new Ticket();
         ticketModel.setCapacidadPersonas(ship.getCapacidadPersonas() - persona);
         ticketModel.setCapacidadAutos(ship.getCapacidadAutos() - autos);
@@ -145,12 +151,12 @@ public class BoletoFacadeREST extends AbstractFacade<Boleto> {
     @Path("confirmation/{id}/{uid}")
     @Consumes({MediaType.APPLICATION_JSON})
     public Confirmation confirmationTicket(@PathParam("id") int itinerarioId, Ticket ticketCompra, @PathParam("uid") int uid) {
-
+        System.out.println("llego a confirmation");
         Confirmation confirmation = new Confirmation();
         Ticket ticket = new Ticket();
+        List<Integer> list = new ArrayList<>();
         int flagAmount = 0;
         ticket = amountTicket(itinerarioId);
-        
         if (ticketCompra.getCapacidadPersonas() <= ticket.getCapacidadPersonas()) {
             flagAmount++;
         }
@@ -168,14 +174,19 @@ public class BoletoFacadeREST extends AbstractFacade<Boleto> {
         }
 
         if (flagAmount == 5) {
-            confirmation.setConfirmation(true);
+            System.out.println("esta en el if");
+            list= holdTicket( ticketCompra, uid, itinerarioId);
+            confirmation.setList(list);
+
+            for(int id: list){
+                System.out.println("id"+id);
+            }
+
         } else if (flagAmount != 5) {
-            confirmation.setConfirmation(false);
+            list = null;
         }
         //Paso para verificar que hay existencia de boletos para comprar todavia.
-        holdTicket(confirmation.isConfirmation(), ticketCompra, uid, itinerarioId);
         return confirmation;
-
     }
 
     @GET
@@ -242,46 +253,60 @@ public class BoletoFacadeREST extends AbstractFacade<Boleto> {
 
         return ticket;
     }
-
-    private void holdTicket(boolean confirmation, Ticket ticket, int usuarioId, int itinerarioId) {
+    @Produces(MediaType.APPLICATION_JSON)
+    private List<Integer> holdTicket( Ticket ticket, int usuarioId, int itinerarioId) {
         Date date = new Date();
         boolean prueba = true;
-        if(confirmation){
+        List<Integer> idBoletosHolder = new ArrayList<>();
+        
                         if(ticket.getCapacidadPersonas()!=0){
                             perList = holdForNombre("Adulto", ticket.getCapacidadPersonas(),usuarioId, itinerarioId);
+                            System.out.println("perList"+perList.size());
+                            for(Boleto boleto: perList){
+                                idBoletosHolder.add(boleto.getId());
+                            }
                         }
                         if(ticket.getCapacidadAutos()!=0){
                             System.out.println("Reteniendo Autos");
                             vehList = holdForNombre("Automovil", ticket.getCapacidadAutos(),usuarioId, itinerarioId);
+                            System.out.println("vehList"+vehList.size());
+                            for(Boleto boleto: vehList){
+                                idBoletosHolder.add(boleto.getId());
+                            }
                         }
                         if(ticket.getCapacidadAutobus()!=0){
                             autList = holdForNombre("Autobus", ticket.getCapacidadAutobus(),usuarioId, itinerarioId);
+                            for(Boleto boleto: autList){
+                                idBoletosHolder.add(boleto.getId());
+                            }
                         }
                         if(ticket.getCapacidadMotos()!=0){
                             motList = holdForNombre("Moto", ticket.getCapacidadMotos(),usuarioId, itinerarioId);
+                            for(Boleto boleto: motList){
+                                idBoletosHolder.add(boleto.getId());
+                            }
                         }
                         if(ticket.getCapacidadCarga()!=0){
                             cargList = holdForNombre("Carga", ticket.getCapacidadCarga(),usuarioId, itinerarioId);
+                            for(Boleto boleto: cargList){
+                                idBoletosHolder.add(boleto.getId());
+                            }
                         }
-                    }
+                    
+        System.out.println("esta en retener boleto");
         
     TimerTask task = new TimerTask(){
         @Override
         public void run(){
-            secondPassed++;
-            System.out.println("segundos del Ferry= "+secondPassed);
             if(secondPassed==240){
                 myTimer.cancel();
                 myTimer.purge();
-                try {
-                    deleteBoleto(usuarioId, itinerarioId);
-                } catch (ParseException ex) {
-                    Logger.getLogger(BoletoFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                deleteBoleto(idBoletosHolder);
             }
         }
     };
-        myTimer.scheduleAtFixedRate(task, 1000, 1000);        
+        myTimer.scheduleAtFixedRate(task, 1000, 1000);      
+        return idBoletosHolder;
     }
     
     private List<Boleto> holdForNombre(String nombre, int cantidadBoleto, int usuarioId, int itinerarioId){
@@ -307,36 +332,36 @@ public class BoletoFacadeREST extends AbstractFacade<Boleto> {
             bolList.add(boleto);
             cantidadBoleto--;
         }
-        return bolList; 
-    }
-    private void deleteBoleto(int usuarioId, int itinerarioId) throws ParseException{
-        Date mDate = new Date();
-        mDate= date;
-        SimpleDateFormat sdf2=new SimpleDateFormat("MMM dd, yyyy");
-        List<Boleto> boletoDateList = boletoFacade.findAll();
+        List<Boleto> returnBoleto= new ArrayList<>();
+        List<Boleto> listaBoletos = boletoFacade.findByHora(d);
+        System.out.println("tamano boletos"+ listaBoletos.size());
+        for(Boleto boletoByHora: listaBoletos){
+            System.out.println("entra en el for");
+            System.out.println("cedula servidor"+boletoByHora.getUsuarioId().getCi());
+            System.out.println("cedula telefono"+user.getUsuario());
+            if(Objects.equals(boletoByHora.getUsuarioId().getId(), user.getId())){
+                System.out.println("entra en el if del for");
+                returnBoleto.add(boletoByHora);
+            }
+        }
         
-        for(Boleto boleto: boletoDateList){
-            if(sdf2.format(boleto.getFecha()).equals(sdf2.format(mDate))){
-                if(boleto.getUsuarioId().getId()==usuarioId){
-                boletoFacade.remove(boleto);
-            }
-            }
+        return returnBoleto; 
+    }
+    private void deleteBoleto(List<Integer> idBoletos){
+       
+        for(int id: idBoletos){
+            boletoFacade.remove(find(id));
         }
     }
            
     @POST
     @Path("movimiento/{numeroReferencia}/{usuarioId}")
     @Consumes({MediaType.APPLICATION_JSON})
-    public Boolean creditoPago(@PathParam("numeroReferencia") int referencia, @PathParam("usuarioId") int usuarioId){
+    public void creditoPago(@PathParam("numeroReferencia") boolean referencia, @PathParam("usuarioId") int usuarioId){
         boolean confir= false;
-        System.out.println("segundos= "+ secondPassed);
+        if(referencia){
         myTimer.cancel();
-        myTimer.purge();
-        
-        
-        
-        return confir;
-        
+        myTimer.purge();}
     }
     
 }

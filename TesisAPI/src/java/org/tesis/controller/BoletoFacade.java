@@ -1,17 +1,15 @@
 package org.tesis.controller;
 
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import org.tesis.model.Boleto;
 
-
-/**
- *
- * @author rjsan
- */
 @Stateless
 public class BoletoFacade extends AbstractFacade<Boleto> {
 
@@ -40,4 +38,28 @@ public class BoletoFacade extends AbstractFacade<Boleto> {
         return boletos;
     }
     
+    public List<Boleto> findByFecha(Date fecha){
+          List<Boleto> listBoleto = null;
+        
+        try {
+            TypedQuery<Boleto> q = em.createNamedQuery("Boleto.findByFecha", Boleto.class);
+            q.setParameter("fecha", fecha);
+            listBoleto= q.getResultList();
+        } catch (NoResultException e) {
+            System.err.println("No se encontro boletos con fecha: " + fecha);
+        }
+        return listBoleto;  
+    }
+    public List<Boleto> findByHora(Date hora){
+        List<Boleto> listBoleto = null;
+        
+        try {
+            TypedQuery<Boleto> q = em.createNamedQuery("Boleto.findByHora", Boleto.class);
+            q.setParameter("hora", hora);
+            listBoleto= q.getResultList();
+        } catch (NoResultException e) {
+            System.err.println("No se encontro boletos con hora: " + hora);
+        }
+        return listBoleto;
+    }
 }

@@ -8,7 +8,7 @@ import org.banco.model.Cuentas;
 import org.banco.model.CuentasCredito;
 import org.banco.model.TarjetaCredito;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-10-01T11:52:46")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-10-05T12:36:30")
 @StaticMetamodel(Cliente.class)
 public class Cliente_ { 
 

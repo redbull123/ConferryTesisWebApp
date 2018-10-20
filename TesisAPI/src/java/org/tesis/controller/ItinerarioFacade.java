@@ -6,10 +6,6 @@ import javax.persistence.PersistenceContext;
 import org.tesis.model.Barco;
 import org.tesis.model.Itinerario;
 
-/**
- *
- * @author rjsan
- */
 @Stateless
 public class ItinerarioFacade extends AbstractFacade<Itinerario> {
 

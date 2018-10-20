@@ -8,7 +8,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 import org.banco.model.Cliente;
 import org.banco.model.MovimientoTarjeta;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-10-01T11:52:46")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-10-05T12:36:30")
 @StaticMetamodel(TarjetaCredito.class)
 public class TarjetaCredito_ { 
 

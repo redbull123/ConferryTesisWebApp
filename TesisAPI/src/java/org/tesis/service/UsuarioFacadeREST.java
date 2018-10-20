@@ -1,6 +1,7 @@
 package org.tesis.service;
 
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,15 +14,15 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import org.tesis.controller.UsuarioFacade;
 import org.tesis.model.Usuario;
 
-/**
- *
- * @author rjsan
- */
 @Stateless
 @Path("usuario")
 public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
+
+    @EJB
+    private UsuarioFacade usuarioFacade;
 
     @PersistenceContext(unitName = "Tesis1.0PU")
     private EntityManager em;
@@ -55,45 +56,37 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
     @Produces({MediaType.APPLICATION_JSON})
     public Usuario find(@PathParam("id") Integer id) {
         return super.find(id);
-         }
+    }
+    
     @GET
     @Path("finduser/{usuario}/")
     @Produces({MediaType.APPLICATION_JSON})
     public Usuario findUser(@PathParam("usuario") String user) {
         
-        List<Usuario> userList = findAll();
-        Usuario hasUser= new Usuario();
-        for(Usuario newUser : userList){
-            if(newUser.getUsuario().equals(user)){
-            hasUser = newUser;}
-        }
-        
+        Usuario hasUser= usuarioFacade.findByUsuario(user);
         return hasUser;
-         }
+    }
     @GET
     @Override
     @Produces({MediaType.APPLICATION_JSON})
-    public List<Usuario> findAll() {
-        
-        
-        
+    public List<Usuario> findAll() {        
         return super.findAll();
     }
 
-    @GET
-    @Path("{from}/{to}")
-    @Produces({MediaType.APPLICATION_JSON})
-    public List<Usuario> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-        return super.findRange(new int[]{from, to});
-    }
 
-    @GET
-    @Path("count")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String countREST() {
-        return String.valueOf(super.count());
+    @POST
+    @Path("create")
+    @Consumes({MediaType.APPLICATION_JSON})
+    public boolean createUser(Usuario user) {
+     boolean r = false;
+       
+        if(!(usuarioFacade.findByUsuarioname(user.getUsuario())) && !(usuarioFacade.findByCI(user.getCi()))){
+        create(user);
+        r = true;
+        }
+        return r;
     }
-
+    
     @Override
     protected EntityManager getEntityManager() {
         return em;

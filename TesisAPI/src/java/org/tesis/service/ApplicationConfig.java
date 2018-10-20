@@ -3,10 +3,6 @@ package org.tesis.service;
 import java.util.Set;
 import javax.ws.rs.core.Application;
 
-/**
- *
- * @author rjsan
- */
 @javax.ws.rs.ApplicationPath("api")
 public class ApplicationConfig extends Application {
 

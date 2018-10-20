@@ -3,10 +3,7 @@ package org.tesis.controller;
 import java.util.List;
 import javax.persistence.EntityManager;
 
-/**
- *
- * @author rjsan
- */
+
 public abstract class AbstractFacade<T> {
 
     private Class<T> entityClass;

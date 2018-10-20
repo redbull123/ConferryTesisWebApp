@@ -9,21 +9,13 @@ import java.util.Locale;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import org.tesis.model.Itinerario;
 
-/**
- *
- * @author rjsan
- */
 @Stateless
 @Path("itinerario")
 public class ItinerarioFacadeREST extends AbstractFacade<Itinerario> {
@@ -35,26 +27,6 @@ public class ItinerarioFacadeREST extends AbstractFacade<Itinerario> {
 
     public ItinerarioFacadeREST() {
         super(Itinerario.class);
-    }
-
-    @POST
-    @Override
-    @Consumes({MediaType.APPLICATION_JSON})
-    public void create(Itinerario entity) {
-        super.create(entity);
-    }
-
-    @PUT
-    @Path("{id}")
-    @Consumes({MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, Itinerario entity) {
-        super.edit(entity);
-    }
-
-    @DELETE
-    @Path("{id}")
-    public void remove(@PathParam("id") Integer id) {
-        super.remove(super.find(id));
     }
 
     @GET
@@ -82,8 +54,8 @@ public class ItinerarioFacadeREST extends AbstractFacade<Itinerario> {
                 hasSchedule.add(newSchedule);
               }
         }
-   return hasSchedule;
-   }
+    return hasSchedule;
+    }
     
     public String changeFormatOne(String time){
         String inputPattern = "EEE MMM d HH:mm:ss z yyyy";
@@ -106,7 +78,6 @@ public class ItinerarioFacadeREST extends AbstractFacade<Itinerario> {
         String outputPattern = "MMM d, yyyy";
         SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
         SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
-
         Date date = null;
         String str= null;
         try {
@@ -139,16 +110,8 @@ public class ItinerarioFacadeREST extends AbstractFacade<Itinerario> {
         return String.valueOf(super.count());
     }
 
-    @POST
-    @Path("prueba")
-    @Consumes({MediaType.APPLICATION_JSON})
-    public void pruebaRaspberry(){
-        
-        System.out.println("HAY COMUNICACIÓN CON RASPBERRRY");
-    }
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-    
 }

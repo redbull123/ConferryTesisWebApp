@@ -17,10 +17,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.tesis.utils.SecurePassword;
 
-/**
- *
- * @author rjsan
- */
 @Entity
 @Table(name = "usuario")
 @XmlRootElement

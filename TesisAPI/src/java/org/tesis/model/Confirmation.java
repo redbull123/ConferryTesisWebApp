@@ -1,26 +1,22 @@
 package org.tesis.model;
 
-/**
- *
- * @author rjsan
- */
+import java.util.ArrayList;
+import java.util.List;
+
 public class Confirmation {
     
-    boolean confirmation = false;
-    
+    List<Integer> list = new ArrayList<>();
+
     public Confirmation() {
     }
 
-    public Confirmation(boolean confirmation) {
-        this.confirmation = confirmation;
+    public List<Integer> getList() {
+        return list;
     }
 
-    public boolean isConfirmation() {
-        return confirmation;
+    public void setList(List<Integer> list) {
+        this.list = list;
     }
 
-    public void setConfirmation(boolean confirmation) {
-        this.confirmation = confirmation;
-    }
-    
+   
 }

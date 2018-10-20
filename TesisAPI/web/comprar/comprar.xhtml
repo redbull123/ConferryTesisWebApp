@@ -1,75 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
-
-    <ui:composition template="/template_op.xhtml">
-
-
-        <ui:define name="title">
-            <h:outputText value="#{bundle.CompraTitle}"></h:outputText>
-        </ui:define>
-
-        <ui:define name="body">
-            
-            
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+   <h:head>
+        <title>Ferrys</title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+   
+    <h:body>
+        <center>
             <h:form>
 
                 <p:growl id="growl" sticky="true" showDetail="true"/>
 
                 <p:wizard flowListener="#{userWizard.onFlowProcess}">
-                    <p:tab id="personal" title="Personal">
+                    <p:tab id="personal" title="Tarjeta">
                         <p:panel header="Personal Details">
                             <p:messages />
                             <h:panelGrid columns="2" columnClasses="label, value">
-                                <h:outputText value="Firstname: *" />
-                                <p:inputText value="#{userWizard.user.firstname}" required="true" label="Firstname"/>
+                                <h:outputText value="Nombre: *" />
+                                <p:inputText value="#{compraWizard.compra.nombre}" required="true" label="Firstname"/>
 
                                 <h:outputText value="Lastname: *" />
-                                <p:inputText value="#{userWizard.user.lastname}" required="true" label="Lastname"/>
+                                <p:inputText value="#{compraWizard.compra.apellido}" required="true" label="Lastname"/>
 
-                                <h:outputText value="Age: " />
-                                <p:inputText value="#{userWizard.user.age}" />
-
+                                <h:outputText value="Numero de tarjerta: " />
+                                <p:inputMask value="#{compraWizard.compra.numero}" mask="9999-9999-9999-9999"/>
+                                                               
+                                <h:outputText value="Marca: " />
+                                <p:selectOneMenu id="marca" value="#{compraWizard.compra.marca}" style="width:125px">
+                                    <f:selectItem itemLabel="Maestro" itemValue="Maestro" />
+                                </p:selectOneMenu>
+                                
+                                <h:outputText value="Fecha de Vencimiento: " />
+                                <p:inputMask value="#{compraWizard.compra.fechavencimiento}" mask="99/99"/>
+                                
+                                <h:outputText value="cvc: " />
+                                <p:inputMask value="#{compraWizard.compra.codigoseguridad}" mask="(999)"/>
+                                
+                                
                                 <h:outputText value="Skip to last: " />
-                                <h:selectBooleanCheckbox value="#{userWizard.skip}" />
-                            </h:panelGrid>
-                        </p:panel>
-                    </p:tab>
-
-                    <p:tab id="address" title="Address">
-                        <p:panel header="Address Details">
-                            <p:messages />
-                            <h:panelGrid columns="2" columnClasses="label, value">
-                                <h:outputText value="Street: " />
-                                <p:inputText value="#{userWizard.user.street}" />
-
-                                <h:outputText value="Postal Code: " />
-                                <p:inputText value="#{userWizard.user.postalCode}" />
-
-                                <h:outputText value="City: " />
-                                <p:inputText value="#{userWizard.user.city}" />
-
-                                <h:outputText value="Skip to last: " />
-                                <h:selectBooleanCheckbox value="#{userWizard.skip}" />
-                            </h:panelGrid>
-                        </p:panel>
-                    </p:tab>
-
-                    <p:tab id="contact" title="Contact">
-                        <p:panel header="Contact Information">
-                            <p:messages />
-                            <h:panelGrid columns="2" columnClasses="label, value">
-                                <h:outputText value="Email: *" />
-                                <p:inputText value="#{userWizard.user.email}" required="true" label="Email"/>
-
-                                <h:outputText value="Phone: " />
-                                <p:inputText value="#{userWizard.user.phone}"/>
-
-                                <h:outputText value="Additional Info: " />
-                                <p:inputText value="#{userWizard.user.info}"/>
+                                <h:selectBooleanCheckbox value="#{compraWizard.skip}" />
                             </h:panelGrid>
                         </p:panel>
                     </p:tab>
@@ -79,39 +52,26 @@
                             <h:panelGrid id="confirmation" columns="3" columnClasses="grid,grid,grid">
                                 <h:panelGrid columns="2" columnClasses="label, value">
                                     <h:outputText value="Firstname: " />
-                                    <h:outputText value="#{userWizard.user.firstname}" styleClass="outputLabel"/>
+                                    <h:outputText value="#{compraWizard.compra.nombre}" styleClass="outputLabel"/>
 
                                     <h:outputText value="Lastname: " />
-                                    <h:outputText value="#{userWizard.user.lastname}" styleClass="outputLabel"/>
-
-                                    <h:outputText value="Age: " />
-                                    <h:outputText value="#{userWizard.user.age}" styleClass="outputLabel"/>
+                                    <h:outputText value="#{compraWizard.compra.apellido}" styleClass="outputLabel"/>
+                                    
+                                    <h:outputText value="Numero de tarjerta: " />
+                                    <h:outputText value="#{compraWizard.compra.numero}" styleClass="outputLabel"/>
+                                                               
+                                <h:outputText value="Marca: " />
+                                <h:outputText value="#{compraWizard.compra.marca}" styleClass="outputLabel"/>
+                                
+                                <h:outputText value="Fecha de Vencimiento: " />
+                                <h:outputText value="#{compraWizard.compra.fechavencimiento}" styleClass="outputLabel"/>
+                                
+                                <h:outputText value="cvc: " />
+                                <h:outputText value="#{compraWizard.compra.codigoseguridad}" styleClass="outputLabel"/>
+                                                                    
                                 </h:panelGrid>
 
-                                <h:panelGrid columns="2" columnClasses="label, value">
-                                    <h:outputText value="Street: " />
-                                    <h:outputText value="#{userWizard.user.street}" styleClass="outputLabel"/>
-
-                                    <h:outputText value="Postal: " />
-                                    <h:outputText value="#{userWizard.user.postalCode}" styleClass="outputLabel"/>
-
-                                    <h:outputText value="City: " />
-                                    <h:outputText value="#{userWizard.user.city}" styleClass="outputLabel"/>
-                                </h:panelGrid>
-
-                                <h:panelGrid columns="2" columnClasses="label, value">
-                                    <h:outputText value="Email: " />
-                                    <h:outputText value="#{userWizard.user.email}" styleClass="outputLabel"/>
-
-                                    <h:outputText value="Phone " />
-                                    <h:outputText value="#{userWizard.user.phone}" styleClass="outputLabel"/>
-
-                                    <h:outputText value="Info: " />
-                                    <h:outputText value="#{userWizard.user.info}" styleClass="outputLabel"/>
-
-                                    <h:outputText />
-                                    <h:outputText />
-                                </h:panelGrid>
+                                
                             </h:panelGrid>
 
                             <p:commandButton value="Submit" actionListener="#{userWizard.save}" update="growl" process="@this"/>
@@ -120,11 +80,6 @@
                 </p:wizard>
 
             </h:form>
-            
-            
-        </ui:define>
-    </ui:composition>
-
+        </center>
+    </h:body>
 </html>
-                
-

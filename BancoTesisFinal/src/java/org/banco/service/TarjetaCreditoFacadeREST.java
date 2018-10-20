@@ -6,8 +6,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -34,6 +32,9 @@ import org.banco.model.TarjetaCredito;
 @Stateless
 @Path("tarjetacredito")
 public class TarjetaCreditoFacadeREST extends AbstractFacade<TarjetaCredito> {
+
+    @EJB
+    private MovimientoTarjetaFacade movimientoTarjetaFacade1;
 
     int secondPassed=0;
     Timer myTimer = new Timer();
@@ -102,45 +103,45 @@ public class TarjetaCreditoFacadeREST extends AbstractFacade<TarjetaCredito> {
     @POST
     @Path("/check/{monto}/{fecha}")
     @Consumes({MediaType.APPLICATION_JSON})
-    public MovimientoCredito checkPay(@PathParam("monto") double monto, @PathParam("fecha") String fecha,TarjetaCredito tarjetaCredito){
-       
+    public Boolean checkPay(@PathParam("monto") double monto, @PathParam("fecha") String fecha,TarjetaCredito tarjetaCredito){
+        System.out.println("LLEGO");
         
+        boolean check= false;
         MovimientoTarjeta movimientoTarjeta = new MovimientoTarjeta();
         MovimientoCredito movimientoCredito = new MovimientoCredito();
         Date date = null;
         String str= null; 
         SimpleDateFormat outputFormat = new SimpleDateFormat("MMM dd, yyyy");   
         SimpleDateFormat inputFormat = new SimpleDateFormat("MMM. dd, yyyy");
+        System.out.println("llego a declarar las variables"+tarjetaCredito.getNumero());
         TarjetaCredito tarjetaCreditoFinded = tarjetaCreditoFacade.findNumeroTDC(tarjetaCredito.getNumero());
      
-        try {
+        System.out.println("devolvio"+tarjetaCreditoFinded.getNumero());
+        System.out.println("fechasinf   "+fecha);
+       /* try {
             date = inputFormat.parse(fecha);
             str = outputFormat.format(date);
         } catch (ParseException e) {
-        }
-         
+        }*/
+        //System.out.println("fechaconf  "+);
+         System.out.println("cambio el formato de fecha");
         if(tarjetaCreditoFinded.getNumero().equals(tarjetaCredito.getNumero())){
-            if(changeFormat(tarjetaCreditoFinded.getFechaVencimiento()).equals(str)){
+            System.out.println("comprobo el numero");
+            System.out.println("fecha servidor"+changeFormat(tarjetaCreditoFinded.getFechaVencimiento())+"fecha del ususario");
+            if(changeFormat(tarjetaCreditoFinded.getFechaVencimiento()).equals(fecha)){
+                            System.out.println("comprobo fecha");
+                            System.out.println("nombre"+tarjetaCreditoFinded.getClienteId().getNombre()+"y el otro"+tarjetaCredito.getClienteId().getNombre());
                 if(tarjetaCreditoFinded.getClienteId().getNombre().equals(tarjetaCredito.getClienteId().getNombre())){
+                    System.out.println("nombre y apellido"+tarjetaCreditoFinded.getClienteId().getApellido()+"y el otro"+tarjetaCredito.getClienteId().getApellido());
                     if(tarjetaCreditoFinded.getClienteId().getApellido().equals(tarjetaCredito.getClienteId().getApellido())){
+                        System.out.println("apellido");
                         System.out.println("Marca del servidor ="+tarjetaCreditoFinded.getMarca()+"\n Marca de la app="+tarjetaCredito.getMarca());
                         if(tarjetaCreditoFinded.getMarca().equals(tarjetaCredito.getMarca())){
                             if(tarjetaCreditoFinded.getCvc() == tarjetaCredito.getCvc()){
                                 if(tarjetaCreditoFinded.getSaldo()>monto){
                                   
-                                    Date mDate= new Date();
-                                    movimientoTarjeta.setMonto(monto);
-                                    movimientoTarjeta.setTarjetaCreditoId(tarjetaCreditoFinded);
-                                    movimientoTarjeta.setTipo(1);
-                                    movimientoTarjeta.setFecha(mDate);
-                                    
-                                    movimientoTarjetaFacade.create(movimientoTarjeta);
-                                    
-                                    movimientoCredito.setComprobante(true);
-                                    movimientoCredito.setNumeroTarjeta(tarjetaCredito.getNumero());
-                                    movimientoCredito.setNumeroReferencia(movimientoTarjetaFacade.findByFecha(movimientoTarjeta.getFecha(), 
-                                            tarjetaCreditoFinded.getId()));
-                                    
+                                    registroPago(tarjetaCreditoFinded, monto);
+                                    check=true;
                                 }
                                 
                                 else if(!(tarjetaCreditoFinded.getSaldo()>monto)){
@@ -173,7 +174,7 @@ public class TarjetaCreditoFacadeREST extends AbstractFacade<TarjetaCredito> {
         }
         
        
-        return movimientoCredito;
+        return check;
                 
     }
     
@@ -206,6 +207,26 @@ public class TarjetaCreditoFacadeREST extends AbstractFacade<TarjetaCredito> {
         return str;
     }
         
+        
+       private void registroPago(TarjetaCredito tarjetaCredito, double monto){
+        
+        Date mDate = new Date();
+
+                                System.out.println("motno en string"+ monto);
+                                System.out.println(monto);
+                                System.out.println(tarjetaCredito.getSaldo()-monto);
+                                tarjetaCredito.setSaldo(tarjetaCredito.getSaldo()-monto);
+                                edit(tarjetaCredito);
+                                   System.out.println("se edito");
+                                   System.out.println("fondo en cuenta"+ tarjetaCredito.getSaldo());
+                                MovimientoTarjeta movimientoTarjeta = new MovimientoTarjeta();
+                                movimientoTarjeta.setMonto(monto);
+                                movimientoTarjeta.setFecha(mDate);
+                                movimientoTarjeta.setTipo(1);
+                                movimientoTarjeta.setTarjetaCreditoId(tarjetaCredito);
+                                movimientoTarjetaFacade.create(movimientoTarjeta);
+                                System.out.println("se registro el moviemiento");
+    }
     
     @Override
     protected EntityManager getEntityManager() {

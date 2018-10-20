@@ -1,4 +1,3 @@
-
 package org.tesis.model;
 
 import java.io.Serializable;
@@ -143,7 +142,4 @@ public class TipoBoleto implements Serializable {
     public String toString() {
         return "" + nombre + "";
     }
-    
-    
-    
 }

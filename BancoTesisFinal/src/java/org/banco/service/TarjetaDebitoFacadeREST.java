@@ -1,11 +1,9 @@
 
 package org.banco.service;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -155,19 +153,19 @@ public class TarjetaDebitoFacadeREST extends AbstractFacade<TarjetaDebito> {
             }
         }
         
-
-        Date date = null;
-        String str= null;
-        try {
-            date = inputFormat.parse(vencimiento);
-            str = outputFormat.format(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-      
+//
+//        Date date = null;
+//        String str= null;
+//        try {
+//            date = inputFormat.parse(vencimiento);
+//            str = outputFormat.format(date);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//      
                 
         System.out.println("MONTO"+ monto);
-        System.out.println("fecha desde la app estaaaaaaa "+vencimiento+"con el formtato"+str+
+        System.out.println("fecha desde la app estaaaaaaa "+vencimiento+"con el formtato"+
                 "\n numero de tarjeta: "+ numero+
                 " \n tarjetahabiente "+nombre+
                 " \n marca"+ marca+
@@ -179,7 +177,7 @@ public class TarjetaDebitoFacadeREST extends AbstractFacade<TarjetaDebito> {
         
         System.out.println("fecha recibida"+ changeFormat(tarjetaDebitoFinded.getFechaVencimiento())+
                 "Nuemro de vuenta del servidor"+tarjetaDebitoFinded.getNumero()+
-                "Marca del servidor"+tarjetaDebitoFinded.getMarca());
+                "Marca del servidor"+tarjetaDebitoFinded.getMarca()+"nombre"+tarjetaDebitoFinded.getCuentasId().getClienteId().getNombre());
         
         if(tarjetaDebitoFinded.getNumero().equals(numero)){
             if(changeFormat(tarjetaDebitoFinded.getFechaVencimiento()).equals(vencimiento)){
@@ -223,7 +221,7 @@ public class TarjetaDebitoFacadeREST extends AbstractFacade<TarjetaDebito> {
                                         System.out.println("no coincide el cvc");
                 }
             }
-            else if(!changeFormat(tarjetaDebitoFinded.getFechaVencimiento()).equals(str)){
+            else if(!changeFormat(tarjetaDebitoFinded.getFechaVencimiento()).equals(vencimiento)){
                 System.out.println("tarjeta vencida");
             }
         }

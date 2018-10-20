@@ -6,10 +6,7 @@ import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import org.tesis.controller.LoginController;
 
-/**
- *
- * @author rjsan
- */
+
 @Named("loginBean")
 @RequestScoped
 public class LoginBean implements Serializable {
@@ -43,7 +40,6 @@ public class LoginBean implements Serializable {
 
         if(loginController.checkUser(inputuser, inputpass)){
             String perfil = loginController.checkProfile(inputuser);
-            System.out.println("Esto vino" + perfil);
             switch(perfil){
                 case "sa":
                     result ="menu/menu_sa";
